@@ -34,3 +34,8 @@ lynx --stderrthreshold=INFO
 ```sh
 http POST localhost:8080/api/users firstname=peter lastname=kneale
 ```
+
+# Unit Tests
+```sh
+ go test -v  . -args -stderrthreshold=INFO
+```

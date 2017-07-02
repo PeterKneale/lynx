@@ -9,7 +9,7 @@ import (
 	"github.com/gorilla/mux"
 )
 
-// GetUser returns a user
+// GetUser returns a user by id
 func (h *Handler) GetUser(w http.ResponseWriter, r *http.Request) {
 	id, err := strconv.Atoi(mux.Vars(r)["id"])
 	if err != nil {
