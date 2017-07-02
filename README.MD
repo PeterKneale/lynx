@@ -32,7 +32,10 @@ lynx --stderrthreshold=INFO
 ## Test
 
 ```sh
-http POST localhost:8080/api/users firstname=peter lastname=kneale
+http GET :8080/api/users
+http POST :8080/api/users firstname=peter lastname=kneale
+http GET :8080/api/users
+http GET :8080/api/users/1
 ```
 
 # Unit Tests

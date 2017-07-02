@@ -33,7 +33,7 @@ var _ = Describe(`Get User Handler`, func() {
 
 	BeforeEach(func() {
 		userstore = &data.UserStoreMock{}
-		handler := NewHandler(userstore)
+		handler := NewGetUserHandler(userstore)
 
 		router = mux.NewRouter()
 		router.Handle("/api/users/{id}", handler).Methods("GET")
