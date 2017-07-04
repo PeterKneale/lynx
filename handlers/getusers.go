@@ -12,9 +12,16 @@ func (h *Handler) GetUsers(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusInternalServerError)
 		return
 	}
+	total, err := h.Users.Count()
+	if err != nil {
+		w.WriteHeader(http.StatusInternalServerError)
+		return
+	}
 
-	userResponses := ConvertUsersToUserResponse(users)
-	response := &UsersResponse{Users: userResponses, Total: 0}
+	response := &UsersResponse{
+		Users: ConvertUsersToUserResponse(users),
+		Total: total,
+	}
 
 	json.NewEncoder(w).Encode(response)
 }

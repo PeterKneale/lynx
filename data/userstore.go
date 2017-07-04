@@ -13,6 +13,16 @@ type UserStore interface {
 	Delete(id int) error
 	List() ([]*UserData, error)
 	Create(user *UserData) error
+	Count() (int, error)
+}
+
+func (db *DB) Count() (int, error) {
+	count := 0
+	users := []*UserData{}
+	if err := db.Connection.Find(&users).Count(&count).Error; err != nil {
+		return count, err
+	}
+	return count, nil
 }
 
 func (db *DB) Exists(id int) (bool, error) {

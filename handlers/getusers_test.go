@@ -55,6 +55,9 @@ var _ = Describe(`Get Users Handler`, func() {
 						&data.UserData{ID: 3, FirstName: "TestUser3FirstName", LastName: "TestUser3FirstName"},
 					}, nil
 				}
+				userstore.CountFunc = func() (int, error) {
+					return 3, nil
+				}
 			})
 			It(`Should return status code OK`, func() {
 				Expect(statuscode).To(Equal(http.StatusOK))
@@ -68,6 +71,9 @@ var _ = Describe(`Get Users Handler`, func() {
 				userstore.ListFunc = func() ([]*data.UserData, error) {
 					return nil, nil
 				}
+				userstore.CountFunc = func() (int, error) {
+					return 0, nil
+				}
 			})
 			It(`Should return status code for found`, func() {
 				Expect(statuscode).To(Equal(http.StatusOK))
@@ -76,10 +82,23 @@ var _ = Describe(`Get Users Handler`, func() {
 				Expect(len(response.Users)).To(Equal(0))
 			})
 		})
-		Context(`and returning an error`, func() {
+		Context(`and returning an error on list`, func() {
 			BeforeEach(func() {
 				userstore.ListFunc = func() ([]*data.UserData, error) {
 					return nil, errors.New("mock error")
+				}
+			})
+			It(`Should return internal error`, func() {
+				Expect(statuscode).To(Equal(http.StatusInternalServerError))
+			})
+		})
+		Context(`and returning an error on count`, func() {
+			BeforeEach(func() {
+				userstore.ListFunc = func() ([]*data.UserData, error) {
+					return nil, nil
+				}
+				userstore.CountFunc = func() (int, error) {
+					return 0, errors.New("mock error")
 				}
 			})
 			It(`Should return internal error`, func() {

@@ -9,6 +9,9 @@ package data
 //
 //         // make and configure a mocked UserStore
 //         mockedUserStore := &UserStoreMock{ 
+//             CountFunc: func() (int, error) {
+// 	               panic("TODO: mock out the Count function")
+//             },
 //             CreateFunc: func(user *UserData) error {
 // 	               panic("TODO: mock out the Create function")
 //             },
@@ -33,6 +36,8 @@ package data
 //     
 //     }
 type UserStoreMock struct {
+	// CountFunc mocks the Count function.
+	CountFunc func() (int, error)
 	// CreateFunc mocks the Create function.
 	CreateFunc func(user *UserData) error
 	// DeleteFunc mocks the Delete function.
@@ -45,6 +50,16 @@ type UserStoreMock struct {
 	GetByEmailFunc func(email string) (*UserData, error)
 	// ListFunc mocks the List function.
 	ListFunc func() ([]*UserData, error)
+}
+
+// Count calls CountFunc.
+func (mock *UserStoreMock) Count() (int, error) {
+	if mock.CountFunc == nil {
+		panic("moq: UserStoreMock.CountFunc is nil but was just called")
+	}
+	
+	return mock.CountFunc()
+	
 }
 
 // Create calls CreateFunc.
