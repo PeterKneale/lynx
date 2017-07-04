@@ -24,7 +24,7 @@ package data
 //             GetByEmailFunc: func(email string) (*UserData, error) {
 // 	               panic("TODO: mock out the GetByEmail function")
 //             },
-//             ListFunc: func() ([]UserData, error) {
+//             ListFunc: func() ([]*UserData, error) {
 // 	               panic("TODO: mock out the List function")
 //             },
 //         }
@@ -44,7 +44,7 @@ type UserStoreMock struct {
 	// GetByEmailFunc mocks the GetByEmail function.
 	GetByEmailFunc func(email string) (*UserData, error)
 	// ListFunc mocks the List function.
-	ListFunc func() ([]UserData, error)
+	ListFunc func() ([]*UserData, error)
 }
 
 // Create calls CreateFunc.
@@ -98,7 +98,7 @@ func (mock *UserStoreMock) GetByEmail(email string) (*UserData, error) {
 }
 
 // List calls ListFunc.
-func (mock *UserStoreMock) List() ([]UserData, error) {
+func (mock *UserStoreMock) List() ([]*UserData, error) {
 	if mock.ListFunc == nil {
 		panic("moq: UserStoreMock.ListFunc is nil but was just called")
 	}

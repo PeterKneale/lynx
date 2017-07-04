@@ -13,5 +13,8 @@ func (h *Handler) GetUsers(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	json.NewEncoder(w).Encode(users)
+	userResponses := ConvertUsersToUserResponse(users)
+	response := &UsersResponse{Users: userResponses, Total: 0}
+
+	json.NewEncoder(w).Encode(response)
 }

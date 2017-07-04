@@ -48,6 +48,7 @@ var _ = Describe(`Get User Handler`, func() {
 		b, _ := ioutil.ReadAll(recorder.Body)
 		json.Unmarshal(b, &userResponse)
 	})
+
 	Describe("loading from data store", func() {
 		Context(`and finding a record`, func() {
 			BeforeEach(func() {

@@ -34,12 +34,7 @@ func (h *Handler) GetUser(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	user := &UserResponse{
-		ID:        userdata.ID,
-		FirstName: userdata.FirstName,
-		LastName:  userdata.LastName,
-		Name:      userdata.FirstName + " " + userdata.LastName,
-	}
+	user := ConvertUserToUserResponse(userdata)
 
 	json.NewEncoder(w).Encode(user)
 }

@@ -11,7 +11,7 @@ type UserStore interface {
 	Get(id int) (*UserData, error)
 	GetByEmail(email string) (*UserData, error)
 	Delete(id int) error
-	List() ([]UserData, error)
+	List() ([]*UserData, error)
 	Create(user *UserData) error
 }
 
@@ -56,8 +56,8 @@ func (db *DB) Delete(id int) error {
 	return nil
 }
 
-func (db *DB) List() ([]UserData, error) {
-	users := []UserData{}
+func (db *DB) List() ([]*UserData, error) {
+	users := []*UserData{}
 	if err := db.Connection.Find(&users).Error; err != nil {
 		return nil, err
 	}
