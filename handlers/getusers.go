@@ -12,6 +12,7 @@ func (h *Handler) GetUsers(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusInternalServerError)
 		return
 	}
+
 	total, err := h.Users.Count()
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)

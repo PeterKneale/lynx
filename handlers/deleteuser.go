@@ -15,6 +15,11 @@ func (h *Handler) DeleteUser(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	if id < 1 {
+		w.WriteHeader(http.StatusBadRequest)
+		return
+	}
+
 	err = h.Users.Delete(id)
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
