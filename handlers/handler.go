@@ -31,3 +31,10 @@ func NewDeleteUserHandler(users data.UserStore) http.HandlerFunc {
 		h.DeleteUser(w, r)
 	}
 }
+
+func NewCreateUserHandler(users data.UserStore) http.HandlerFunc {
+	h := &Handler{Users: users}
+	return func(w http.ResponseWriter, r *http.Request) {
+		h.CreateUser(w, r)
+	}
+}
