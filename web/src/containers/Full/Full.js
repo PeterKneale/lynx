@@ -7,6 +7,7 @@ import Aside from '../../components/Aside/';
 import Footer from '../../components/Footer/';
 
 import Dashboard from '../../views/Dashboard/'
+import Users from '../../views/Users/'
 
 class Full extends Component {
   render() {
@@ -20,6 +21,7 @@ class Full extends Component {
             <div className="container-fluid">
               <Switch>
                 <Route path="/dashboard" name="Dashboard" component={Dashboard}/>
+                <Route path="/users" name="Users" component={Users}/>
                 <Redirect from="/" to="/dashboard"/>
               </Switch>
             </div>
