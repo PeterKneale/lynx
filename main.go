@@ -7,6 +7,7 @@ import (
 	"github.com/caarlos0/env"
 	"github.com/golang/glog"
 	"github.com/gorilla/mux"
+	_ "github.com/jinzhu/gorm/dialects/mssql"
 	_ "github.com/jinzhu/gorm/dialects/postgres"
 	"github.com/simplicate/lynx/data"
 	"github.com/simplicate/lynx/handlers"
@@ -17,6 +18,7 @@ import (
 
 type config struct {
 	APIPort    int    `env:"LYNX_API_PORT"    envDefault:"8080"`
+	DBDialect  string `env:"LYNX_DB_DIALECT"  envDefault:"postgres"`
 	DBDatabase string `env:"LYNX_DB_DATABASE" envDefault:"lynx"`
 	DBHost     string `env:"LYNX_DB_HOST"     envDefault:"localhost"`
 	DBUser     string `env:"LYNX_DB_USERNAME" envDefault:"admin"`
@@ -41,7 +43,7 @@ func main() {
 	}
 	glog.Infof("config: %+v\n", conf)
 
-	db, err := data.NewDB(conf.DBHost, conf.DBDatabase, conf.DBUser, conf.DBPassword)
+	db, err := data.NewDB(conf.DBDialect, conf.DBHost, conf.DBDatabase, conf.DBUser, conf.DBPassword)
 	if err != nil {
 		glog.Fatal("could not connect to database", err)
 	}
@@ -61,6 +63,9 @@ func main() {
 	router.HandleFunc("/api/users/email/{email}", handler.GetUserByEmail).Methods("GET")
 	router.HandleFunc("/api/users/{id}", handler.DeleteUser).Methods("DELETE")
 	router.HandleFunc("/api/users", handler.CreateUser).Methods("POST")
+
+	fs := http.FileServer(http.Dir("web/public"))
+	router.Handle("/", fs)
 
 	addr := fmt.Sprintf("0.0.0.0:%v", conf.APIPort)
 	glog.Infof("listening: %s", addr)

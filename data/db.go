@@ -13,12 +13,18 @@ type DB struct {
 }
 
 // NewDB creates a new database with an open connection
-func NewDB(host, database, user, password string) (*DB, error) {
-	connection := fmt.Sprintf("host=%s user=%s dbname=%s sslmode=disable password=%s", host, user, database, password)
+func NewDB(dialect, host, database, user, password string) (*DB, error) {
+	connection := ""
+	if dialect == "postgres" {
+		connection = fmt.Sprintf("host=%s user=%s dbname=%s sslmode=disable password=%s", host, user, database, password)
+	}
+	if dialect == "mssql" {
+		connection = fmt.Sprintf("sqlserver://%s:%s@%s:1433?database=%s", user, password, host, database)
+	}
 
-	glog.Infof("opening db: '%s'", connection)
+	glog.Infof("opening db with dialect '%s' and connection '%s'", dialect, connection)
 
-	gormdb, err := gorm.Open("postgres", connection)
+	gormdb, err := gorm.Open(dialect, connection)
 	if err != nil {
 		glog.Error("error opening")
 		return nil, err

@@ -17,7 +17,16 @@ docker run -d \
 - LYNX can be configured via environment variables
 
 ```sh
+export LYNX_DB_DIALECT=postgres
 export LYNX_DB_HOST=172.17.0.1
+export LYNX_DB_DATABASE=lynx
+export LYNX_DB_USER=admin
+export LYNX_DB_PASSWORD=password
+```
+
+```sh
+export LYNX_DB_DIALECT=mssql
+export LYNX_DB_HOST=127.0.0.1
 export LYNX_DB_DATABASE=lynx
 export LYNX_DB_USER=admin
 export LYNX_DB_PASSWORD=password
