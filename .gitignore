@@ -1,3 +1,6 @@
+# Build folder
+web/build
+
 # Logs
 logs
 *.log
