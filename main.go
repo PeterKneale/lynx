@@ -64,8 +64,7 @@ func main() {
 	router.HandleFunc("/api/users/{id}", handler.DeleteUser).Methods("DELETE")
 	router.HandleFunc("/api/users", handler.CreateUser).Methods("POST")
 
-	fs := http.FileServer(http.Dir("web/public"))
-	router.Handle("/", fs)
+	router.PathPrefix("/").Handler(http.StripPrefix("/", http.FileServer(http.Dir("web/build"))))
 
 	addr := fmt.Sprintf("0.0.0.0:%v", conf.APIPort)
 	glog.Infof("listening: %s", addr)
