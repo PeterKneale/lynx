@@ -1,8 +1,8 @@
 import { combineReducers } from 'redux'
-import users from './users'
+import usersReducer from './users'
 
-const lynxApp = combineReducers({
-  users
+const rootReducer = combineReducers({
+  usersReducer: usersReducer
 })
 
-export default lynxApp
+export default rootReducer

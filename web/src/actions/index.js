@@ -1,5 +1,8 @@
 import fetch from 'isomorphic-fetch'
 import { hashHistory } from 'react-router'
+
+const BASE_URL = '';
+
 // LIST
 export const REQUEST_LIST_USERS = 'REQUEST_LIST_USERS'
 export const REQUEST_LIST_USERS_FAIL = 'REQUEST_LIST_USERS_FAIL'
@@ -14,10 +17,12 @@ export const requestListUsersFail = (message) => ({
 })
 export const responseListUsers = (json) => ({
   type: RESPONSE_LIST_USERS,
-  users: json.map(user => user)
+  users: json.users.map(user => user),
+  total: json.total
 })
 
 export function listUsers() {
+  console.log("list users called");
   return (dispatch, getState) => {
     return dispatch(doListUsers())
   }
@@ -26,22 +31,21 @@ export function listUsers() {
 function doListUsers() {
   return (dispatch) => {
     dispatch(requestListUsers())
-    return fetch('http://localhost:8080/api/users')
+    return fetch(BASE_URL + '/api/users')
+      .then(console.log("request made"))
       .then(checkStatus)
       .then(response => response.json())
       .then(json => dispatch(responseListUsers(json)))
-      .catch(e => dispatch(requestListUsersFail("Unable to list users.")));
+      .catch(e => dispatch(requestListUsersFail("Unable to list users." + e)));
   }
-}
-
-export const initialState = {
-  users: []
 }
 
 function checkStatus(response) {
   if (response.status >= 200 && response.status < 300) {
+    console.log("status ok")
     return response
   } else {
+    console.log("status errror")
     var error = new Error(response.statusText)
     error.response = response
     throw error

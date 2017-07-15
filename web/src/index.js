@@ -11,7 +11,7 @@ const history = createBrowserHistory();
 ReactDOM.render((
     <HashRouter history={history}>
       <Switch>
-        <Route path="/" name="Home" component={Full} />
+        <Route path="/" name="Home" component={Full}/>
       </Switch>
     </HashRouter>
 ), document.getElementById('root'))

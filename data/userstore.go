@@ -2,6 +2,7 @@ package data
 
 import (
 	"github.com/jinzhu/gorm"
+	"math/rand"
 )
 
 //go:generate moq -out userstoremock.go . UserStore
@@ -18,10 +19,7 @@ type UserStore interface {
 
 func (db *DB) Count() (int, error) {
 	count := 0
-	users := []*UserData{}
-	if err := db.Connection.Find(&users).Count(&count).Error; err != nil {
-		return count, err
-	}
+	db.Connection.Model(&UserData{}).Count(&count)
 	return count, nil
 }
 
@@ -75,6 +73,7 @@ func (db *DB) List() ([]*UserData, error) {
 }
 
 func (db *DB) Create(user *UserData) error {
+	user.ID = rand.Intn(1000)
 	if err := db.Connection.Save(user); err != nil {
 		return err.Error
 	}

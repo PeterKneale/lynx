@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-import { createStore } from 'redux'
+import { createStore, applyMiddleware, compose } from 'redux'
 
 import { Provider } from 'react-redux'
+import thunk from 'redux-thunk'
 
-import { Link, Switch, Route, Redirect } from 'react-router-dom'
+import { Switch, Route, Redirect } from 'react-router-dom'
 
 import Header from '../../components/Header/';
 import Sidebar from '../../components/Sidebar/';
@@ -13,11 +14,10 @@ import Footer from '../../components/Footer/';
 
 import Dashboard from '../../views/Dashboard/'
 import Users from '../../views/Users/'
+import { listUsers } from "../../actions"
+import rootReducer from '../../reducers'
 
-import lynxApp from '../../reducers'
-import { listUsers } from '../../actions'
-
-let store = createStore(lynxApp)
+const store = compose(applyMiddleware(thunk))(createStore)(rootReducer);
 
 class Full extends Component {
   render() {
@@ -32,7 +32,7 @@ class Full extends Component {
               <div className="container-fluid">
                 <Switch>
                   <Route path="/dashboard" name="Dashboard" component={Dashboard} />
-                  <Route path="/users" name="Users" component={Users} onEnter={() => store.dispatch(listUsers())} />
+                  <Route path="/users" name="Users" component={Users} />
                   <Redirect from="/" to="/dashboard" />
                 </Switch>
               </div>

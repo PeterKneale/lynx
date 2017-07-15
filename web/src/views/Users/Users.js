@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux'
 import { listUsers } from '../../actions'
 
-const UsersList = ({users}) => {
+const UsersList = ({users, total, onRefresh}) => {
   return (
     <div className="animated fadeIn">
       <div className="row">
@@ -11,7 +11,12 @@ const UsersList = ({users}) => {
           <div className="card">
             <div className="card-header">
               <i className="fa fa-align-justify"></i> Users
+              <div className="float-right">
+                <button type="button" className="btn btn-outline-primary btn-sm" onClick={()=>onRefresh()}>
+                  <i className="fa fa-refresh"></i> Refresh
+                </button>
               </div>
+            </div>
             <div className="card-block">
               <table className="table">
                 <thead>
@@ -25,7 +30,7 @@ const UsersList = ({users}) => {
                 <tbody>
                   {users.map(function (user) {
                     <tr>
-                      <td>user.Name</td>
+                      <td>{user.Name}</td>
                       <td>2012/01/01</td>
                       <td>Member</td>
                       <td>
@@ -36,6 +41,7 @@ const UsersList = ({users}) => {
                 </tbody>
               </table>
             </div>
+            <div className="card-footer">{total} Users</div>
           </div>
         </div>
       </div>
@@ -43,12 +49,15 @@ const UsersList = ({users}) => {
 };
 
 UsersList.propTypes = {
-  users: PropTypes.array
+  users: PropTypes.array.isRequired,
+  total: PropTypes.number.isRequired,
+  onRefresh: PropTypes.func
 };
 
 const mapStateToProps = (state) => {
     return {
-        users: state.users.users
+        users: state.usersReducer.users,
+        total: state.usersReducer.total
     }
 }
 
