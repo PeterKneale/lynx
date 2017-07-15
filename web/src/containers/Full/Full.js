@@ -13,8 +13,7 @@ import Aside from '../../components/Aside/';
 import Footer from '../../components/Footer/';
 
 import Dashboard from '../../views/Dashboard/'
-import Users from '../../views/Users/'
-import { listUsers } from "../../actions"
+import UsersLayout from '../../views/Users/Layout'
 import rootReducer from '../../reducers'
 
 const store = compose(applyMiddleware(thunk))(createStore)(rootReducer);
@@ -32,7 +31,7 @@ class Full extends Component {
               <div className="container-fluid">
                 <Switch>
                   <Route path="/dashboard" name="Dashboard" component={Dashboard} />
-                  <Route path="/users" name="Users" component={Users} />
+                  <Route path="/users" component={UsersLayout} />
                   <Redirect from="/" to="/dashboard" />
                 </Switch>
               </div>

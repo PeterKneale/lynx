@@ -17,7 +17,7 @@ export const requestListUsersFail = (message) => ({
 })
 export const responseListUsers = (json) => ({
   type: RESPONSE_LIST_USERS,
-  users: json.users.map(user => user),
+  users: json.users,
   total: json.total
 })
 
