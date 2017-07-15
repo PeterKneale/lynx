@@ -9,9 +9,9 @@ import Full from './containers/Full/'
 const history = createBrowserHistory();
 
 ReactDOM.render((
-  <HashRouter history={history}>
-    <Switch>
-      <Route path="/" name="Home" component={Full}/>
-    </Switch>
-  </HashRouter>
+    <HashRouter history={history}>
+      <Switch>
+        <Route path="/" name="Home" component={Full} />
+      </Switch>
+    </HashRouter>
 ), document.getElementById('root'))
