@@ -5,7 +5,6 @@ const INITIAL_STATE = {
   total: 0
 }
 const usersReducer = (state = INITIAL_STATE, action) => {
-  console.log("Users reducer. Action: " + JSON.stringify(action));
   switch (action.type) {
     case REQUEST_LIST_USERS:
       return {

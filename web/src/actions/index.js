@@ -22,7 +22,6 @@ export const responseListUsers = (json) => ({
 })
 
 export function listUsers() {
-  console.log("list users called");
   return (dispatch, getState) => {
     return dispatch(doListUsers())
   }
@@ -32,7 +31,6 @@ function doListUsers() {
   return (dispatch) => {
     dispatch(requestListUsers())
     return fetch(BASE_URL + '/api/users')
-      .then(console.log("request made"))
       .then(checkStatus)
       .then(response => response.json())
       .then(json => dispatch(responseListUsers(json)))
@@ -42,10 +40,8 @@ function doListUsers() {
 
 function checkStatus(response) {
   if (response.status >= 200 && response.status < 300) {
-    console.log("status ok")
     return response
   } else {
-    console.log("status errror")
     var error = new Error(response.statusText)
     error.response = response
     throw error

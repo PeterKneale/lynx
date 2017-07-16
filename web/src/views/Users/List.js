@@ -22,20 +22,18 @@ const List = ({users, total, onRefresh}) => (
       </div>
 );
 
-
 const RenderTable = (users, total) => (
   <div>
     {RenderStats(total)}
     <Row>
-      <table className="table">
+      <table className="table table-bordered table-striped table-condensed">
         <thead>
-          <tr><th>Name</th><th>Email</th><th>Registered</th><th>Role</th><th>Status</th></tr>
+          <tr><th>Id</th><th>Name</th><th>First Name</th><th>Last Name</th></tr>
         </thead>
         <tbody>
-          <tr><td>xxxxxxxxxx</td><td>xxxxxxxxxx</td><td>xxxxxxxxxx</td><td>xxxxxxxxxx</td><td>xxxxxxxxxx</td></tr>
-          <tr><td>xxxxxxxxxx</td><td>xxxxxxxxxx</td><td>xxxxxxxxxx</td><td>xxxxxxxxxx</td><td>xxxxxxxxxx</td></tr>
-          <tr><td>xxxxxxxxxx</td><td>xxxxxxxxxx</td><td>xxxxxxxxxx</td><td>xxxxxxxxxx</td><td>xxxxxxxxxx</td></tr>
-          <tr><td>xxxxxxxxxx</td><td>xxxxxxxxxx</td><td>xxxxxxxxxx</td><td>xxxxxxxxxx</td><td>xxxxxxxxxx</td></tr>
+            { users.map(function (user) {
+                return <tr key={user.id}><td>{user.id}</td><td>{user.Name}</td><td>{user.firstName}</td><td>{user.lastName}</td></tr>
+            })}
         </tbody>
       </table>
     </Row>
@@ -51,13 +49,13 @@ const RenderStats = (total) => (
       </div>
     </div>
     <div className="col-sm-2">
-      <div className="callout callout-warning">
+      <div className="callout callout-success">
         <small className="text-muted">Active Users</small><br/>
         <strong className="h4">{total /2}</strong>
       </div>
     </div>
     <div className="col-sm-2">
-      <div className="callout callout-primary">
+      <div className="callout callout-success">
         <small className="text-muted">Paid Users</small><br/>
         <strong className="h4">{total /3}</strong>
       </div>
@@ -77,9 +75,7 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  onRefresh: () => {
-    dispatch(listUsers())
-  }
+  onRefresh: () => { dispatch(listUsers()) }
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(List)
