@@ -37,7 +37,7 @@ const RenderTable = (users, total, onEdit, onDelete) => (
                   <td>{user.lastName}</td>
                   <td>
                     <button className="btn btn-outline-primary btn-sm" onClick={()=>onEdit(user.id)}>Edit</button>
-                    <button className="btn btn-outline-critical btn-sm" onClick={()=>onDelete(user.id)}>Delete</button>
+                    <button className="btn btn-outline-danger btn-sm" onClick={()=>onDelete(user.id)}>Delete</button>
                   </td>
                 </tr>
             })}
