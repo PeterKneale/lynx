@@ -5,6 +5,16 @@ import (
 	"math/rand"
 )
 
+type PagedQuery struct {
+	Page     int
+	PageSize int
+	Order    string
+}
+
+func (q *PagedQuery) Offset() int {
+	return (q.Page-1)*q.PageSize + 1
+}
+
 //go:generate moq -out userstoremock.go . UserStore
 
 type UserStore interface {
@@ -12,7 +22,7 @@ type UserStore interface {
 	Get(id int) (*UserData, error)
 	GetByEmail(email string) (*UserData, error)
 	Delete(id int) error
-	List() ([]*UserData, error)
+	List(p *PagedQuery) ([]*UserData, error)
 	Create(user *UserData) error
 	Count() (int, error)
 }
@@ -64,12 +74,12 @@ func (db *DB) Delete(id int) error {
 	return nil
 }
 
-func (db *DB) List() ([]*UserData, error) {
+func (db *DB) List(p *PagedQuery) ([]*UserData, error) {
 	users := []*UserData{}
-	if err := db.Connection.Find(&users).Error; err != nil {
+	if err := db.Connection.Find(&users).Order(p.Order).Error; err != nil {
 		return nil, err
 	}
-	return users, nil
+	return users[0:p.PageSize], nil
 }
 
 func (db *DB) Create(user *UserData) error {

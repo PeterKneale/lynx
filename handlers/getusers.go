@@ -2,12 +2,14 @@ package handlers
 
 import (
 	"encoding/json"
+	"github.com/simplicate/lynx/data"
 	"net/http"
 )
 
 // GetUsers returns all users
 func (h *Handler) GetUsers(w http.ResponseWriter, r *http.Request) {
-	users, err := h.Users.List()
+	page := &data.PagedQuery{Page: 2, PageSize: 10, Order: "id asc"}
+	users, err := h.Users.List(page)
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
 		return

@@ -48,7 +48,7 @@ var _ = Describe(`Get Users Handler`, func() {
 	Describe("loading from data store", func() {
 		Context(`and finding many records`, func() {
 			BeforeEach(func() {
-				userstore.ListFunc = func() ([]*data.UserData, error) {
+				userstore.ListFunc = func(p *data.PagedQuery) ([]*data.UserData, error) {
 					return []*data.UserData{
 						&data.UserData{ID: 1, FirstName: "TestUser1FirstName", LastName: "TestUser1FirstName"},
 						&data.UserData{ID: 2, FirstName: "TestUser2FirstName", LastName: "TestUser2FirstName"},
@@ -68,7 +68,7 @@ var _ = Describe(`Get Users Handler`, func() {
 		})
 		Context(`and not finding a record`, func() {
 			BeforeEach(func() {
-				userstore.ListFunc = func() ([]*data.UserData, error) {
+				userstore.ListFunc = func(p *data.PagedQuery) ([]*data.UserData, error) {
 					return nil, nil
 				}
 				userstore.CountFunc = func() (int, error) {
@@ -84,7 +84,7 @@ var _ = Describe(`Get Users Handler`, func() {
 		})
 		Context(`and returning an error on list`, func() {
 			BeforeEach(func() {
-				userstore.ListFunc = func() ([]*data.UserData, error) {
+				userstore.ListFunc = func(p *data.PagedQuery) ([]*data.UserData, error) {
 					return nil, errors.New("mock error")
 				}
 			})
@@ -94,7 +94,7 @@ var _ = Describe(`Get Users Handler`, func() {
 		})
 		Context(`and returning an error on count`, func() {
 			BeforeEach(func() {
-				userstore.ListFunc = func() ([]*data.UserData, error) {
+				userstore.ListFunc = func(p *data.PagedQuery) ([]*data.UserData, error) {
 					return nil, nil
 				}
 				userstore.CountFunc = func() (int, error) {
