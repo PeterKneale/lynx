@@ -1,29 +1,28 @@
 import React from 'react';
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
-import {listUsers, editUser, deleteUser} from '../../actions'
+import {listUsers} from '../../actions'
 import {LinkContainer} from 'react-router-bootstrap';
-import {Row, Col, Button, ButtonGroup, Panel } from 'react-bootstrap';
-import history from './history';
+import {Row, Button, Glyphicon  } from 'react-bootstrap';
 
-const List = ({users, total, onRefresh, onEdit, onDelete}) => (
-      <div className="card">
-        <div className="card-header">
-          <i className="fa fa-align-justify"></i> Users
-          <div className="float-right">
-            <button type="button" className="btn btn-outline-primary btn-sm" onClick={() => onRefresh()}>
-              <i className="fa fa-refresh"></i> Refresh
-            </button>
-          </div>
-        </div>
-        <div className="card-block">
-          {RenderTable(users, total, onEdit, onDelete)}
-        </div>
-        <div className="card-footer"></div>
+const List = ({users, total, onRefresh}) => (
+  <div className="card">
+    <div className="card-header">
+      <i className="fa fa-align-justify"></i> Users
+      <div className="float-right">
+        <button type="button" className="btn btn-outline-primary btn-sm" onClick={() => onRefresh()}>
+          <i className="fa fa-refresh"></i> Refresh
+        </button>
       </div>
+    </div>
+    <div className="card-block">
+      {RenderTable(users, total)}
+    </div>
+    <div className="card-footer"></div>
+  </div>
 );
 
-const RenderTable = (users, total, onEdit, onDelete) => (
+const RenderTable = (users, total) => (
   <div>
       <table className="table table-bordered table-striped table-condensed">
         <thead>
@@ -36,8 +35,12 @@ const RenderTable = (users, total, onEdit, onDelete) => (
                   <td>{user.firstName}</td>
                   <td>{user.lastName}</td>
                   <td>
-                    <button className="btn btn-outline-primary btn-sm" onClick={()=>onEdit(user.id)}>Edit</button>
-                    <button className="btn btn-outline-danger btn-sm" onClick={()=>onDelete(user.id)}>Delete</button>
+                    <LinkContainer to={"/users/edit/" + user.id}>
+                      <Button bsStyle="info" bsSize="sm">Edit</Button>
+                    </LinkContainer>
+                    <LinkContainer to={"/users/delete/" + user.id}>
+                      <Button bsStyle="danger" bsSize="sm">Delete</Button>
+                    </LinkContainer>
                   </td>
                 </tr>
             })}
@@ -73,9 +76,7 @@ const RenderStats = (total) => (
 List.propTypes = {
   users: PropTypes.array.isRequired,
   total: PropTypes.number.isRequired,
-  onRefresh: PropTypes.func,
-  onEdit: PropTypes.func,
-  onDelete: PropTypes.func
+  onRefresh: PropTypes.func
 };
 
 const mapStateToProps = (state) => {
@@ -83,9 +84,7 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  onRefresh: () => { dispatch(listUsers()) },
-  onEdit: (id) => { history.push('#/users/edit/' + id) },
-  onDelete: (id) => { dispatch(deleteUser(id)) }
+  onRefresh: () => { dispatch(listUsers()) }
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(List)

@@ -21,8 +21,8 @@ const Create = props => {
                         </div>
                     </div>
                     <div className="card-footer">
-                        <button type="submit" className="btn btn-sm btn-primary"><i className="fa fa-dot-circle-o"></i> Submit</button>
-                        <button type="reset" className="btn btn-sm btn-danger"><i className="fa fa-ban"></i> Reset</button>
+                        <button type="submit" className="btn btn-sm btn-primary"><i className="fa fa-save"></i> Save</button>
+                        <button type="reset" className="btn btn-sm btn-danger"><i className="fa fa-ban"></i> Cancel</button>
                     </div>
                 </div>
             </Col>

@@ -1,4 +1,5 @@
 import {REQUEST_LIST_USERS, RESPONSE_LIST_USERS, REQUEST_LIST_USERS_FAIL} from "../actions"
+import {REQUEST_DELETE_USER, RESPONSE_DELETE_USER, REQUEST_DELETE_USER_FAIL} from "../actions"
 
 const INITIAL_STATE = {
   users: [],
@@ -20,6 +21,16 @@ const usersReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state
       }
+    case REQUEST_DELETE_USER:
+        return { 
+            ...state, 
+            users : state.users
+        }
+    case RESPONSE_DELETE_USER:
+        return { 
+            ...state, 
+            users : state.users.filter(function(user) { return user.id !== action.id } ) 
+        }
     default:
       return state
   }
