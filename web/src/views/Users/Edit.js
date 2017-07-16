@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
+import {LinkContainer} from 'react-router-bootstrap';
+import {Button} from 'react-bootstrap';
 
 const Edit = props => {
     return (
@@ -17,11 +19,14 @@ const Edit = props => {
                     <label htmlFor="lastname">Last Name</label>
                     <input type="text" className="form-control" id="lastname" placeholder="Enter last name"/>
                 </div>
-                
-                    <div className="card-footer">
-                        <button type="submit" className="btn btn-sm btn-primary"><i className="fa fa-save"></i> Save</button>
-                        <button type="reset" className="btn btn-sm btn-danger"><i className="fa fa-ban"></i> Reset</button>
-                    </div>
+                <div className="card-footer">      
+                    <LinkContainer to="/users">
+                        <Button bsStyle="primary" bsSize="sm"><i className="fa fa-save"></i> Edit</Button>
+                    </LinkContainer>
+                    <LinkContainer to="/users">
+                        <Button>Cancel</Button>
+                    </LinkContainer>
+                </div>
             </div>
         </div>
     );

@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {LinkContainer} from 'react-router-bootstrap';
 import {Button} from 'react-bootstrap';
-import {deleteUser} from '../../actions';
 
 const Delete = props => {
     return (
@@ -15,11 +14,11 @@ const Delete = props => {
                 Are you sure you want to delete this user?
             </div>
             <div className="card-footer">
-                <LinkContainer to="/users" onClick={deleteUser(1)}>
-                    <Button bsStyle="danger" bsSize="sm"><i className="fa fa-dot-circle-o"></i> Delete</Button>
+                <LinkContainer to="/users">
+                    <Button bsStyle="danger" bsSize="sm"><i className="fa fa-trash"></i> Delete</Button>
                 </LinkContainer>
                 <LinkContainer to="/users">
-                    <Button bsStyle="info" bsSize="sm">Cancel</Button>
+                    <Button>Cancel</Button>
                 </LinkContainer>
             </div>
         </div>

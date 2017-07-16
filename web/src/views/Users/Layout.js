@@ -10,11 +10,14 @@ import Delete from './Delete'
 const RenderToolbar = () => (
     <div className="card">
         <div className="card-block">
-            <ButtonGroup>
-                <LinkContainer to="/users/create">
-                    <Button bsStyle="primary">Create new user</Button>
-                </LinkContainer>
-            </ButtonGroup>
+            <LinkContainer to="/users/create">
+                <Button bsStyle="primary">Create new user</Button>
+            </LinkContainer>
+            &nbsp;
+            <LinkContainer to="/users/invite">
+                <Button bsStyle="primary">Invite new user</Button>
+            </LinkContainer>
+        
         </div>
     </div>
 )

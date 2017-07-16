@@ -38,6 +38,7 @@ const RenderTable = (users, total) => (
                     <LinkContainer to={"/users/edit/" + user.id}>
                       <Button bsStyle="info" bsSize="sm">Edit</Button>
                     </LinkContainer>
+                    &nbsp;
                     <LinkContainer to={"/users/delete/" + user.id}>
                       <Button bsStyle="danger" bsSize="sm">Delete</Button>
                     </LinkContainer>
