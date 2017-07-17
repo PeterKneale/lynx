@@ -1,0 +1,6 @@
+{
+  "name": "UsersLayout",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./UsersLayout.js"
+}
