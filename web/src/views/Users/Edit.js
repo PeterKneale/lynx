@@ -21,7 +21,7 @@ const Edit = props => {
                 </div>
                 <div className="card-footer">      
                     <LinkContainer to="/users">
-                        <Button bsStyle="primary" bsSize="sm"><i className="fa fa-save"></i> Edit</Button>
+                        <Button bsStyle="primary" bsSize="sm"><i className="fa fa-save"></i> Save</Button>
                     </LinkContainer>
                     <LinkContainer to="/users">
                         <Button>Cancel</Button>

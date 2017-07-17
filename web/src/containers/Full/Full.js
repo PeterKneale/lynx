@@ -15,9 +15,9 @@ import Footer from '../../components/Footer/';
 import Dashboard from '../../views/Dashboard/'
 import UsersLayout from '../../views/Users/Layout'
 import rootReducer from '../../reducers'
+import { listUsers } from '../../actions'
 
 const store = compose(applyMiddleware(thunk))(createStore)(rootReducer);
-
 class Full extends Component {
   render() {
     return (
@@ -44,5 +44,6 @@ class Full extends Component {
     );
   }
 }
+store.dispatch(listUsers())
 
 export default Full;
